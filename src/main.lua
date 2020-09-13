@@ -1,7 +1,17 @@
 Object = require 'libraries/classic/classic'
+Input = require 'libraries/boipushy/Input'
+
+require 'utils/loadFiles'
+require 'utils/requireFiles'
 
 function love.load()
   image = love.graphics.newImage('resources/image.jpg')
+
+  local object_files = {}
+  loadFiles('objects', object_files)
+  requireFiles(object_files)
+
+  input = Input()
 end
 
 function love.update(dt)
