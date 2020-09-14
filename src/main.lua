@@ -1,6 +1,8 @@
 Object = require 'libraries/classic/classic'
 Input = require 'libraries/boipushy/Input'
 Timer = require 'libraries/chrono/Timer'
+Moses = require 'libraries/moses/moses'
+
 
 require 'utils/loadFiles'
 require 'utils/requireFiles'
