@@ -8,19 +8,40 @@ require 'utils/loadFiles'
 require 'utils/requireFiles'
 
 function love.load()
-  image = love.graphics.newImage('resources/image.jpg')
-
+  -- require all object files
   local object_files = {}
   loadFiles('objects', object_files)
   requireFiles(object_files)
 
+  -- initialize global input
   input = Input()
+
+  -- initialize game rooms
+  rooms = {}
+  current_room = nil
 end
 
 function love.update(dt)
-
+  if current_room then current_room:update(dt) end
 end
 
 function love.draw()
-  love.graphics.draw(image, love.math.random(0, 800), love.math.random(0, 600))
+  if current_room == nil then goToRoom('IntroRoom', 'intro') end
+  if current_room then current_room:draw() end
+end
+
+function addRoom(room_type, room_name)
+  local room = _G[room_type](room_name)
+  rooms[room_name] = room
+  return room
+end
+
+function goToRoom(room_type, room_name)
+  if current_room then
+    if current_room.deactivate then current_room:deactivate() end
+  end
+  if rooms[room_name] then
+    current_room = rooms[room_name]
+  else current_room = addRoom(room_type, room_name) end
+  if current_room.activate then current_room:activate() end
 end
