@@ -1,5 +1,6 @@
 Object = require 'libraries/classic/classic'
 Input = require 'libraries/boipushy/Input'
+Timer = require 'libraries/chrono/Timer'
 
 require 'utils/loadFiles'
 require 'utils/requireFiles'
