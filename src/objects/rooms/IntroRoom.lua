@@ -1,25 +1,25 @@
 IntroRoom = Object:extend()
 
 function IntroRoom:new()
-  -- TODO: Figure out if these should be local
-  image = love.graphics.newImage('resources/image.jpg')  
-  active = false
+  self.active = false
+  self.area = Area()
 end
 
 function IntroRoom:update(dt)
-
+  self.area:update(dt)
 end
 
 function IntroRoom:draw()
-  if active == true then
-    love.graphics.draw(image, love.math.random(0, 800), love.math.random(0, 600))
+  if self.active == true then
+    self.area:draw()
   end
 end
 
 function IntroRoom:activate()
-  active = true
+  self.active = true
+  self.area:addGameObject('Circle', random(0, 800), random(0, 600), { radius = random(10, 50) })
 end
 
 function IntroRoom:deactivate()
-  active = false
+  self.active = false
 end

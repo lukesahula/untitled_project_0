@@ -3,9 +3,13 @@ Input = require 'libraries/boipushy/Input'
 Timer = require 'libraries/chrono/Timer'
 Moses = require 'libraries/moses/moses'
 
-
 require 'utils/loadFiles'
 require 'utils/requireFiles'
+require 'utils/UUID';
+require 'utils/random';
+
+-- GameObject needs to be required before other objects that extend it
+require 'objects/GameObject';
 
 function love.load()
   -- require all object files
@@ -15,6 +19,8 @@ function love.load()
 
   -- initialize global input
   input = Input()
+  input:bind('left', 'leftRoom');
+  input:bind('right', 'rightRoom');
 
   -- initialize game rooms
   rooms = {}
@@ -23,6 +29,8 @@ end
 
 function love.update(dt)
   if current_room then current_room:update(dt) end
+  if input:pressed('leftRoom') then goToRoom('IntroRoom', 'intro') end
+  if input:pressed('rightRoom') then goToRoom('SecondRoom', 'second') end
 end
 
 function love.draw()
